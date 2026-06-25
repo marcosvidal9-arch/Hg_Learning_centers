@@ -1,381 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Heligrafics Learning Center</title>
-
-  <style>
-    :root {
-      --bg: #f5f5f5;
-      --dark: #2b2b2b;
-      --black: #1f1f1f;
-      --red: #d71920;
-      --white: #ffffff;
-      --gray: #666666;
-      --border: #dddddd;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--dark);
-    }
-
-    header {
-      background: var(--white);
-      padding: 24px 40px;
-      border-bottom: 4px solid var(--red);
-      display: flex;
-      align-items: center;
-      gap: 28px;
-    }
-
-    header img {
-      height: 82px;
-      max-width: 320px;
-      object-fit: contain;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 30px;
-      color: var(--black);
-    }
-
-    header p {
-      margin: 6px 0 0;
-      color: var(--gray);
-    }
-
-    nav {
-      background: var(--black);
-      padding: 14px 40px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    nav a {
-      color: var(--white);
-      text-decoration: none;
-      margin-right: 22px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      color: var(--red);
-    }
-
-    main {
-      max-width: 1200px;
-      margin: auto;
-      padding: 34px;
-    }
-
-    section {
-      background: var(--white);
-      padding: 26px;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      margin-bottom: 30px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-    }
-
-    h2 {
-      color: var(--black);
-      margin-top: 0;
-      border-left: 6px solid var(--red);
-      padding-left: 12px;
-    }
-
-    h3 {
-      color: var(--black);
-      margin-top: 0;
-    }
-
-    p, li {
-      color: var(--gray);
-      line-height: 1.6;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      background: #fafafa;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      transition: 0.2s;
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-      border-color: var(--red);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-    }
-
-    .card.disabled {
-      opacity: 0.55;
-    }
-
-    .tag {
-      display: inline-block;
-      background: var(--red);
-      color: var(--white);
-      padding: 5px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-
-    .tag.gray {
-      background: var(--gray);
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 10px 14px;
-      background: var(--red);
-      color: var(--white);
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    .btn:hover {
-      background: #a90f15;
-    }
-
-    pre {
-      background: var(--black);
-      color: var(--white);
-      padding: 20px;
-      border-radius: 12px;
-      overflow: auto;
-      line-height: 1.5;
-    }
-
-    .note {
-      background: #fff4f4;
-      border-left: 5px solid var(--red);
-      padding: 14px;
-      border-radius: 10px;
-      color: var(--dark);
-    }
-
-    footer {
-      text-align: center;
-      padding: 24px;
-      color: var(--gray);
-      font-size: 13px;
-    }
-  </style>
+  <link rel="icon" type="image/png" href="assets/favi.png">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
-
 <body>
-
 <header>
-  <img src="assets/logo.png" alt="Heligrafics Logo">
+  <a href="index.html" class="logo-link"><img src="assets/logo.png" alt="Heligrafics Logo"></a>
   <div>
     <h1>Heligrafics Learning Center</h1>
-    <p>Centro de conocimiento operacional para proyectos técnicos</p>
+    <p>Centro de conocimiento operacional</p>
   </div>
 </header>
-
 <nav>
-  <a href="#inicio">Inicio</a>
-  <a href="#lineas">Líneas Eléctricas</a>
-  <a href="#documentacion">Documentación</a>
-  <a href="#scripts">Scripts</a>
-  <a href="#carpetas">Carpetas</a>
+  <a class="active" href="index.html">Inicio</a>
+  <a href="proyectos/lineas-electricas.html">Líneas Eléctricas</a>
+  <a href="datos/estimaciones.html">Datos y Métricas</a>
 </nav>
-
 <main>
-
-<section id="inicio">
+<section>
   <h2>Centro de proyectos</h2>
-  <p>
-    Plataforma interna para centralizar documentación, flujos, códigos,
-    estructura de carpetas, procedimientos y herramientas de trabajo.
-  </p>
-
+  <p>Selecciona un módulo para acceder a documentación, flujos, scripts, datos técnicos y herramientas internas.</p>
   <div class="grid">
     <div class="card">
       <span class="tag">Disponible</span>
       <h3>⚡ Inspección de Líneas Eléctricas</h3>
-      <p>Documentación, flujos, scripts y estructura base del proyecto.</p>
-      <a href="#lineas" class="btn">Entrar</a>
+      <p>Documentación, flujos, estructura de carpetas, scripts, métricas y estimador de proyecto.</p>
+      <a class="btn" href="proyectos/lineas-electricas.html">Entrar</a>
     </div>
-
     <div class="card disabled">
       <span class="tag gray">Próximamente</span>
       <h3>🌎 LiDAR Masivo</h3>
-      <p>RiPROCESS, LMS, QC, clasificación, entregables e incidencias.</p>
+      <p>Procesamiento masivo, RiPROCESS, LMS, QC, clasificación y entregables.</p>
     </div>
-
     <div class="card disabled">
       <span class="tag gray">Próximamente</span>
       <h3>🌲 Inventario Forestal</h3>
-      <p>CHM, detección de árboles, métricas, reportes y validación.</p>
+      <p>CHM, métricas forestales, detección de árboles, reportes y validación.</p>
     </div>
   </div>
 </section>
-
-<section id="lineas">
-  <h2>Inspección de Líneas Eléctricas</h2>
-  <p>
-    Módulo enfocado en proyectos de inspección de líneas eléctricas,
-    integrando trayectoria, RiPROCESS, LiDAR, fotografías, selección por apoyo,
-    selección por vano, códigos y entregables.
-  </p>
-
+<section>
+  <h2>Roadmap interno</h2>
   <div class="grid">
-    <div class="card">
-      <h3>Documentación principal</h3>
-      <p>Flujos y documentos técnicos del proyecto.</p>
-      <a href="#documentacion" class="btn">Ver documentación</a>
-    </div>
-
-    <div class="card">
-      <h3>Scripts</h3>
-      <p>Acceso a carpeta general de códigos y automatizaciones.</p>
-      <a href="#scripts" class="btn">Ver scripts</a>
-    </div>
-
-    <div class="card">
-      <h3>Estructura de carpetas</h3>
-      <p>Orden recomendado para trabajar el proyecto.</p>
-      <a href="#carpetas" class="btn">Ver estructura</a>
-    </div>
+    <div class="card"><h3>✅ Beta actual</h3><p>Multi página, logo clickeable, navegación activa, documentación y estimador integrado.</p></div>
+    <div class="card"><h3>🎥 Próxima mejora</h3><p>Agregar tutoriales de YouTube ocultos directamente dentro del módulo de Líneas Eléctricas.</p></div>
+    <div class="card"><h3>🚨 Futuro</h3><p>Problemas frecuentes, checklists, buscador interno y base histórica de proyectos.</p></div>
   </div>
 </section>
-
-<section id="documentacion">
-  <h2>Documentación principal</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Procesamiento Trayectoria</h3>
-      <p>Documento base para procesamiento de trayectoria.</p>
-      <a class="btn" target="_blank" href="https://docs.google.com/document/d/1js_zjfQ56ghIWlYznmg1gGePmLAwwMkr59-FJRuW7ds/edit?tab=t.0">Abrir</a>
-    </div>
-
-    <div class="card">
-      <h3>Procesamiento LiDAR en RiPROCESS</h3>
-      <p>Documento técnico para procesamiento LiDAR.</p>
-      <a class="btn" target="_blank" href="https://docs.google.com/document/d/15Q_5TdlUSN-KvdQ0f8Pke05tPObw3iPPaqraMILVKBA/edit?tab=t.0#heading=h.ejj76651st0w">Abrir</a>
-    </div>
-
-    <div class="card">
-      <h3>Flujo LiDAR</h3>
-      <p>Flujo general de trabajo LiDAR.</p>
-      <a class="btn" target="_blank" href="https://heligraficsfotogrametria-my.sharepoint.com/:w:/g/personal/mvidal_heligrafics_net/IQBOfFMJIG-OSZVB_2xOqSOIAa8WFzDZ2a2E3kKCzbVxqQk?e=TvnFVN">Abrir</a>
-    </div>
-
-    <div class="card">
-      <h3>Flujo Fotos</h3>
-      <p>Flujo asociado a imágenes RGB.</p>
-      <a class="btn" target="_blank" href="https://heligraficsfotogrametria-my.sharepoint.com/:w:/g/personal/mvidal_heligrafics_net/IQDNhQcuTDv9R4Vr-WIdmVj7AfYr_q-rG4aHWM49DpWDpDs?e=0IMzV1">Abrir</a>
-    </div>
-
-    <div class="card">
-      <h3>Selección por Apoyo</h3>
-      <p>Flujo de selección de imágenes por apoyo.</p>
-      <a class="btn" target="_blank" href="https://heligraficsfotogrametria-my.sharepoint.com/:w:/g/personal/mvidal_heligrafics_net/IQCVosOAjqqTR4ez6BpHYNVVASrVBss1DeYzfXUg82hMBfA?e=EgTeJv">Abrir</a>
-    </div>
-
-    <div class="card">
-      <h3>Selección por Vano</h3>
-      <p>Flujo de selección de imágenes por vano.</p>
-      <a class="btn" target="_blank" href="https://heligraficsfotogrametria-my.sharepoint.com/:w:/g/personal/mvidal_heligrafics_net/IQBqkWydxDnCTbckBIMEBEbEAawMaPDwslZZIf5OzC6FR8I?e=KcMcsB">Abrir</a>
-    </div>
-
-    <div class="card">
-      <h3>Documentación Código CHM</h3>
-      <p>Documento técnico del código CHM.</p>
-      <a class="btn" target="_blank" href="https://heligraficsfotogrametria-my.sharepoint.com/:w:/g/personal/mvidal_heligrafics_net/IQAHeIgTNmZqRKeZ3qb3II84AbwUIWWSefugeHQ2Lczo_Fg?e=UXxC4a">Abrir</a>
-    </div>
-
-    <div class="card">
-      <h3>Manuales RiPROCESS / POSPac</h3>
-      <p>Carpeta de manuales técnicos.</p>
-      <a class="btn" target="_blank" href="https://drive.google.com/drive/folders/1YCKjsJZHZZBeW00DSwyyya4wa2V78JDU?usp=drive_link">Abrir carpeta</a>
-    </div>
-
-    <div class="card">
-      <h3>Documentos necesarios RiPROCESS</h3>
-      <p>Insumos requeridos para procesamiento.</p>
-      <a class="btn" target="_blank" href="https://drive.google.com/drive/folders/1vqXGgDk4jhODxmM61AmsvvKQEmnbK4bl?usp=drive_link">Abrir carpeta</a>
-    </div>
-  </div>
-</section>
-
-<section id="scripts">
-  <h2>Scripts y códigos</h2>
-
-  <p>
-    Repositorio general con documentación de códigos, scripts de fotografía,
-    scripts LiDAR, automatizaciones y herramientas de apoyo.
-  </p>
-
-  <a class="btn" target="_blank" href="https://drive.google.com/drive/folders/1s20U8NhDpq3wp_VR7Nt_ov5QwO-0Eq4i?usp=drive_link">
-    Abrir carpeta general de códigos
-  </a>
-
-  <div class="note">
-    Más adelante podemos separar esta sección en: Fotografía, LiDAR, QC, CHM y Entregables.
-  </div>
-</section>
-
-<section id="carpetas">
-  <h2>Estructura de carpetas</h2>
-
-  <pre>
-N:\01_IBERDROLA_2026
-├── 00_TRAYECTORIAS
-│   ├── ACTUALIZADAS
-│   ├── MALAS
-│   └── T04
-├── 01_RIPROCESS
-│   ├── 00_lasdevice
-│   ├── 01_rxp
-│   └── 02_PROYECTOS
-├── 02_FOTOS
-├── 03_LIDAR
-├── 04_PROCESAMIENTO
-│   ├── 00_CARPETA_TIPO
-│   ├── CIRCUITO_1
-│   └── CIRCUITO_N
-├── 05_VECTORIALES
-│   ├── 00_APOYOS
-│   ├── 01_CIRCUITOS
-│   ├── 02_TRAYECTORIAS
-│   └── 03_DXF
-├── 06_CODIGOS
-├── 07_ENTREGABLES
-└── 08_DOCUMENTACION
-  </pre>
-</section>
-
 </main>
-
-<footer>
-  Heligrafics Learning Center · Beta 0.4
-</footer>
-
+<footer>Heligrafics Learning Center · Beta 0.6</footer>
 </body>
 </html>

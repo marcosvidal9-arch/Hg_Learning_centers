@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estimador Líneas Eléctricas</title>
+  <link rel="icon" type="image/png" href="../assets/favi.png">
+  <link rel="stylesheet" href="../assets/style.css">
+
+  <style>
+    input {
+      width: 100%;
+      padding: 11px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: var(--black);
+      margin-top: 6px;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      color: var(--gray);
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 16px;
+      padding: 13px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--red);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #a90f15;
+    }
+
+    .kpi {
+      font-size: 30px;
+      font-weight: bold;
+      margin-top: 8px;
+      color: var(--red);
+    }
+
+    .small {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.45;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--black);
+      background: #f3f3f3;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+      background: #fff4f4;
+      color: var(--red);
+      border: 1px solid #f0b4b4;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .step {
+      background: #fafafa;
+      border-left: 4px solid var(--red);
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--black);
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <a href="../index.html" class="logo-link">
+    <img src="../assets/logo.png" alt="Heligrafics Logo">
+  </a>
+  <div>
+    <h1>Estimador Líneas Eléctricas</h1>
+    <p>Estimación de tiempos, personas y almacenamiento</p>
+  </div>
+</header>
+
+<nav>
+  <a href="../index.html">Inicio</a>
+  <a href="../proyectos/lineas-electricas.html">Líneas Eléctricas</a>
+  <a class="active" href="estimaciones.html">Datos y Métricas</a>
+</nav>
+
+<main>
+
+<div class="breadcrumb">
+  <a href="../index.html">Inicio</a> / <a href="../proyectos/lineas-electricas.html">Líneas Eléctricas</a> / Estimador
+</div>
+
+<section>
+  <h2>Estimador automático</h2>
+  <p>
+    Ingresa los kilómetros del proyecto, personas disponibles, colchón operativo
+    y almacenamiento base. El modelo estima misiones, vuelo, procesamiento,
+    QC, fotos, días-persona y almacenamiento recomendado.
+  </p>
+</section>
+
+<section>
+  <h2>Datos editables</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Proyecto</h3>
+
+      <label>Kilómetros del proyecto</label>
+      <input id="km" type="number" value="560">
+
+      <label>Personas totales disponibles</label>
+      <input id="personas" type="number" value="2.5" step="0.5">
+
+      <label>Colchón operativo %</label>
+      <input id="colchon" type="number" value="20">
+    </div>
+
+    <div class="card">
+      <h3>Almacenamiento</h3>
+
+      <label>GB base del proyecto</label>
+      <input id="gbBase" type="number" value="600">
+
+      <label>Factor almacenamiento total</label>
+      <input id="factorStorage" type="number" value="20">
+
+      <label>LiDAR final GB cada 10 km</label>
+      <input id="lidarFinal10" type="number" value="0.35" step="0.01">
+    </div>
+
+    <div class="card">
+      <h3>Calcular</h3>
+      <p class="small">
+        Las misiones, días de vuelo, procesamiento, ajuste, QC, fotos y vanos
+        se calculan automáticamente desde rendimientos históricos.
+      </p>
+      <button onclick="calcular()">Actualizar modelo</button>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Resultados principales</h2>
+
+  <div class="grid">
+    <div class="card"><h3>Misiones</h3><div id="kMisiones" class="kpi">-</div><p class="small">Automático según km</p></div>
+    <div class="card"><h3>Días Vuelo</h3><div id="kVuelo" class="kpi">-</div><p class="small">2 misiones por día</p></div>
+    <div class="card"><h3>Duración Base</h3><div id="kBase" class="kpi">-</div><p class="small">Sin colchón</p></div>
+    <div class="card"><h3>Con Colchón</h3><div id="kColchon" class="kpi">-</div><p class="small">Plan recomendado</p></div>
+    <div class="card"><h3>Días-persona</h3><div id="kDP" class="kpi">-</div><p class="small">Carga interna total</p></div>
+    <div class="card"><h3>Storage</h3><div id="kStorage" class="kpi">-</div><p class="small">Espacio recomendado</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Línea de flujo</h2>
+  <div id="timeline" class="timeline"></div>
+</section>
+
+<section>
+  <h2>Detalle automático por etapa</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Etapa</th>
+        <th>Tipo</th>
+        <th>Rendimiento usado</th>
+        <th>Resultado</th>
+        <th>Comentario</th>
+      </tr>
+    </thead>
+    <tbody id="tabla"></tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Supuestos internos del modelo</h2>
+  <div class="note">
+    - 56 km por misión aproximadamente.<br>
+    - 2 misiones por día de vuelo.<br>
+    - 1 día adicional para boresight.<br>
+    - Procesamiento LiDAR: 8 días cada 10 misiones + boresight.<br>
+    - Ajuste/corte LiDAR: 15 km/persona/día.<br>
+    - Clasificación externa: bloques de 120 km, 3 a 5 días por bloque.<br>
+    - QC incidencias: 50 km/persona/día, con factor de complejidad.<br>
+    - Apoyos: 11,1 apoyos/km aprox.<br>
+    - Selección de apoyos: 150 apoyos/persona/día.<br>
+    - Vanos/fotos por vano: 15 km/persona/día.
+  </div>
+</section>
+
+<section>
+  <h2>Conclusión ejecutiva</h2>
+  <div id="conclusion" class="small"></div>
+</section>
+
+</main>
+
+<footer>
+  Heligrafics Learning Center · Estimador Líneas Eléctricas
+</footer>
+
+<script>
+function n(x,d=1){return new Intl.NumberFormat('es-CL',{maximumFractionDigits:d}).format(x)}
+function e(x){return new Intl.NumberFormat('es-CL',{maximumFractionDigits:0}).format(x)}
+
+function calcular(){
+
+  const km = +document.getElementById("km").value;
+  const personas = +document.getElementById("personas").value;
+  const colchon = (+document.getElementById("colchon").value) / 100;
+
+  const gbBase = +document.getElementById("gbBase").value;
+  const factorStorage = +document.getElementById("factorStorage").value;
+  const lidarFinal10 = +document.getElementById("lidarFinal10").value;
+
+  const kmPorMision = 56;
+  const misionesPorDia = 2;
+  const apoyosPorKm = 6200 / 560;
+  const bloquesClasificacionKm = 120;
+
+  const rendimientoAjusteKmPersonaDia = 15;
+  const rendimientoQCIncidenciasKmPersonaDia = 50;
+  const rendimientoApoyosPersonaDia = 150;
+  const rendimientoVanosKmPersonaDia = 15;
+
+  const factorComplejidadIncidencias = 1.25;
+
+  const misiones = Math.ceil(km / kmPorMision);
+  const diasVuelo = Math.ceil(misiones / misionesPorDia);
+
+  const diasLidar = (misiones / 10) * 8 + 1;
+  const diasAjuste = km / (personas * rendimientoAjusteKmPersonaDia);
+
+  const bloquesClasificacion = Math.ceil(km / bloquesClasificacionKm);
+  const clasificacionMin = bloquesClasificacion * 3;
+  const clasificacionMax = bloquesClasificacion * 5;
+
+  const diasQCIncidencias = (km / (personas * rendimientoQCIncidenciasKmPersonaDia)) * factorComplejidadIncidencias;
+
+  const diasCodigosInformes = 3;
+
+  const apoyos = km * apoyosPorKm;
+  const diasFotosApoyos = apoyos / (personas * rendimientoApoyosPersonaDia);
+  const diasFotosVanos = km / (personas * rendimientoVanosKmPersonaDia);
+
+  const diasFotosTotal = Math.max(diasFotosApoyos, diasFotosVanos);
+
+  const duracionBase =
+    diasVuelo +
+    diasLidar +
+    diasAjuste +
+    diasQCIncidencias +
+    diasCodigosInformes +
+    diasFotosTotal;
+
+  const duracionConColchon = duracionBase * (1 + colchon);
+
+  const diasPersona =
+    (diasLidar * 1) +
+    (diasAjuste * personas) +
+    (diasQCIncidencias * personas) +
+    (diasCodigosInformes * 1) +
+    (diasFotosApoyos * personas) +
+    (diasFotosVanos * personas);
+
+  const storageTB = (gbBase * factorStorage) / 1000;
+  const lidarFinalGB = (km / 10) * lidarFinal10;
+
+  document.getElementById("kMisiones").innerText = e(misiones);
+  document.getElementById("kVuelo").innerText = n(diasVuelo) + " días";
+  document.getElementById("kBase").innerText = n(duracionBase) + " días";
+  document.getElementById("kColchon").innerText = n(duracionConColchon) + " días";
+  document.getElementById("kDP").innerText = n(diasPersona) + " días";
+  document.getElementById("kStorage").innerText = n(storageTB) + " TB";
+
+  document.getElementById("timeline").innerHTML = `
+    <div class="step"><strong>1. Vuelo</strong>${e(misiones)} misiones · ${n(diasVuelo)} días</div>
+    <div class="step"><strong>2. Procesamiento LiDAR</strong>${n(diasLidar)} días · incluye boresight</div>
+    <div class="step"><strong>3. Ajuste y corte</strong>${n(diasAjuste)} días · ${n(personas)} personas</div>
+    <div class="step"><strong>4. Clasificación externa</strong>${e(bloquesClasificacion)} bloques · ${n(clasificacionMin)}-${n(clasificacionMax)} días tercero</div>
+    <div class="step"><strong>5. QC incidencias</strong>${n(diasQCIncidencias)} días</div>
+    <div class="step"><strong>6. Códigos e informes</strong>${n(diasCodigosInformes)} días</div>
+    <div class="step"><strong>7. Fotos apoyos</strong>${n(diasFotosApoyos)} días</div>
+    <div class="step"><strong>8. Fotos vanos</strong>${n(diasFotosVanos)} días</div>
+  `;
+
+  document.getElementById("tabla").innerHTML = `
+<tr>
+<td><span class="badge">Vuelo</span></td>
+<td>Calendario</td>
+<td>${n(kmPorMision)} km/misión · ${e(misionesPorDia)} misiones/día</td>
+<td>${e(misiones)} misiones · ${n(diasVuelo)} días</td>
+<td>Se calcula automáticamente desde los km.</td>
+</tr>
+
+<tr>
+<td><span class="badge">Procesamiento LiDAR</span></td>
+<td>Flujo fijo</td>
+<td>8 días cada 10 misiones + 1 día boresight</td>
+<td>${n(diasLidar)} días</td>
+<td>No escala linealmente con más personas; requiere especialista y tiempos máquina.</td>
+</tr>
+
+<tr>
+<td><span class="badge">Ajuste y corte LiDAR</span></td>
+<td>Equipo interno</td>
+<td>${n(rendimientoAjusteKmPersonaDia)} km/persona/día</td>
+<td>${n(diasAjuste)} días</td>
+<td>Usa las ${n(personas)} personas disponibles como equipo móvil.</td>
+</tr>
+
+<tr>
+<td><span class="badge">Clasificación externa</span></td>
+<td>Tercero</td>
+<td>Bloques de ${e(bloquesClasificacionKm)} km</td>
+<td>${e(bloquesClasificacion)} bloques · ${n(clasificacionMin)}-${n(clasificacionMax)} días</td>
+<td>Espera externa solapable: no se suma completa al flujo interno.</td>
+</tr>
+
+<tr>
+<td><span class="badge">QC incidencias</span></td>
+<td>Equipo interno</td>
+<td>${n(rendimientoQCIncidenciasKmPersonaDia)} km/persona/día + factor complejidad</td>
+<td>${n(diasQCIncidencias)} días</td>
+<td>Depende de cantidad de incidencias y retrabajos.</td>
+</tr>
+
+<tr>
+<td><span class="badge">Códigos / informes</span></td>
+<td>Flujo fijo</td>
+<td>3 días base</td>
+<td>${n(diasCodigosInformes)} días</td>
+<td>Generación de informes, capas, vanos, estructuras y salidas.</td>
+</tr>
+
+<tr>
+<td><span class="badge">Fotos por apoyo</span></td>
+<td>Equipo interno</td>
+<td>${n(rendimientoApoyosPersonaDia)} apoyos/persona/día</td>
+<td>${n(diasFotosApoyos)} días</td>
+<td>${e(apoyos)} apoyos estimados.</td>
+</tr>
+
+<tr>
+<td><span class="badge">Fotos por vano</span></td>
+<td>Equipo interno</td>
+<td>${n(rendimientoVanosKmPersonaDia)} km/persona/día</td>
+<td>${n(diasFotosVanos)} días</td>
+<td>Se modela por km porque todavía no tenemos métrica sólida por vano.</td>
+</tr>
+
+<tr>
+<td><span class="badge">Almacenamiento</span></td>
+<td>Infraestructura</td>
+<td>${n(gbBase)} GB × factor ${n(factorStorage)}</td>
+<td>${n(storageTB)} TB</td>
+<td>LiDAR final estimado: ${n(lidarFinalGB)} GB.</td>
+</tr>
+`;
+
+  document.getElementById("conclusion").innerHTML = `
+Para un proyecto de <b>${n(km)} km</b>, el modelo estima automáticamente <b>${e(misiones)} misiones</b> y
+<b>${n(diasVuelo)} días de vuelo</b>.<br><br>
+
+Con <b>${n(personas)} personas totales</b>, la duración base interna queda en
+<b>${n(duracionBase)} días hábiles operativos</b>. Aplicando un colchón de <b>${n(colchon*100)}%</b>,
+la planificación recomendada es de <b>${n(duracionConColchon)} días</b>.<br><br>
+
+La clasificación externa se estima en <b>${e(bloquesClasificacion)} bloques</b> de aproximadamente
+<b>${e(bloquesClasificacionKm)} km</b>, con una espera de <b>${n(clasificacionMin)} a ${n(clasificacionMax)} días</b> acumulados de tercero.<br><br>
+
+El cuello de botella principal sigue estando en <b>ajuste/corte LiDAR + QC incidencias + fotos por apoyo + fotos por vano</b>.
+`;
+}
+
+calcular();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datos y Métricas</title>
+  <link rel="icon" type="image/png" href="../assets/favi.png">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header>
+  <a href="../index.html" class="logo-link"><img src="../assets/logo.png" alt="Heligrafics Logo"></a>
+  <div><h1>Datos y Métricas</h1><p>Parámetros base para estimar almacenamiento, tiempos y recursos</p></div>
+</header>
+<nav>
+  <a href="../index.html">Inicio</a>
+  <a href="../proyectos/lineas-electricas.html">Líneas Eléctricas</a>
+  <a class="active" href="estimaciones.html">Datos y Métricas</a>
+</nav>
+<main>
+<div class="breadcrumb"><a href="../index.html">Inicio</a> / Datos y Métricas</div>
+<section>
+  <h2>Datos base para líneas eléctricas</h2>
+  <div class="grid">
+    <div class="card"><h3>Apoyos por kilómetro</h3><p><strong>Media tensión:</strong> 12 apoyos/km aprox.</p></div>
+    <div class="card"><h3>Vanos por kilómetro</h3><p><strong>Media tensión:</strong> 11 vanos/km aprox.</p></div>
+    <div class="card"><h3>Misiones</h3><p><strong>Referencia:</strong> 56 km por misión.</p></div>
+    <div class="card"><h3>Vuelo</h3><p><strong>Referencia:</strong> 2 misiones por día.</p></div>
+    <div class="card"><h3>Ajuste y corte LiDAR</h3><p><strong>Referencia:</strong> 15 km/persona/día.</p></div>
+    <div class="card"><h3>QC incidencias</h3><p><strong>Referencia:</strong> 50 km/persona/día con factor de complejidad.</p></div>
+  </div>
+</section>
+<section>
+  <h2>Variables recomendadas para estimar almacenamiento</h2>
+  <ul>
+    <li>Kilómetros totales del proyecto.</li>
+    <li>Cantidad de circuitos.</li>
+    <li>Cantidad de vuelos o misiones.</li>
+    <li>Cantidad estimada de apoyos y vanos.</li>
+    <li>Fotos por kilómetro, apoyo y vano.</li>
+    <li>Peso promedio de fotografía RGB y térmica.</li>
+    <li>Peso de video GoPro por hora o kilómetro.</li>
+    <li>Peso LiDAR bruto, procesado y clasificado por kilómetro.</li>
+    <li>Peso de entregables por circuito.</li>
+    <li>Factor de respaldo recomendado.</li>
+  </ul>
+</section>
+<section>
+  <h2>Estimador de proyecto</h2>
+  <p>Para calcular tiempos, misiones, días-persona y almacenamiento recomendado, usa el estimador del módulo de líneas eléctricas.</p>
+  <a class="btn" href="calculadora_LE.html">Abrir estimador de líneas eléctricas</a>
+</section>
+<section>
+  <h2>Regla inicial de almacenamiento</h2>
+  <div class="note">Como referencia inicial: para un proyecto de 600 GB operativos, considerar aproximadamente 12 TB de almacenamiento total entre bruto, procesamiento, respaldos, temporales y entregables.</div>
+</section>
+</main>
+<footer>Heligrafics Learning Center · Datos y Métricas</footer>
+</body>
+</html>
